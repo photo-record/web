@@ -1,0 +1,42 @@
+@import '@styles/_variables.scss';
+.header-container {
+  height: 57px;
+  width: 100%;
+  background-color: #fff;
+  &-fix {
+    border-bottom: 1px solid #eeeeee;
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    background-color: #fff;
+    height: 57px;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 16px;
+    align-items: center;
+    max-width: 769px;
+    margin: 0 auto;
+    &-no-border {
+      border: 0;
+    }
+
+    .title-wrapper {
+      position: absolute;
+      right: 110px;
+      left: 110px;
+      text-align: center;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 1;
+      -webkit-box-orient: vertical;
+      font-size: 18px;
+      font-weight: 500;
+      color: $greyscale10;
+    }
+    .button-wrapper {
+      cursor: pointer;
+    }
+  }
+}

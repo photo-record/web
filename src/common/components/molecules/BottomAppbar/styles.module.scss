@@ -1,0 +1,46 @@
+@import '@styles/_variables.scss';
+.appbar-container {
+  height: 67px;
+  width: 100%;
+  background-color: #fff;
+  &-fix {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background-color: #fff;
+    height: 67px;
+    display: flex;
+    justify-content: space-evenly;
+    padding: 10px 0 16px 0;
+    align-items: center;
+    max-width: 769px;
+    margin: 0 auto;
+    border-top: 1px solid #eeeeee;
+  }
+  a {
+    display: inline-flex;
+    align-items: center;
+    flex-direction: column;
+    font-size: 11px;
+    letter-spacing: -0.33px;
+    line-height: 16px;
+    color: #bababa;
+    svg {
+      margin-bottom: -1px;
+    }
+    &.active {
+      color: $main;
+      svg {
+        path,
+        circle {
+          stroke: $main;
+          fill: $main;
+        }
+        line {
+          stroke: #fff;
+        }
+      }
+    }
+  }
+}

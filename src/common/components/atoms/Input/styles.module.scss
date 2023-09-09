@@ -1,0 +1,38 @@
+@import '@styles/_variables.scss';
+.input-container {
+  .input-wrapper {
+    position: relative;
+    .input {
+      background-color: #fff;
+      border: 1px solid #f0f0f0;
+      border-radius: 8px;
+      padding: 14px;
+      outline: none;
+      width: 100%;
+      box-shadow: (2px 2px 4px #0000000a);
+
+      &::placeholder {
+        color: #bababa;
+      }
+      &:focus {
+        border-color: #212121;
+      }
+    }
+    .label-wrapper {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      right: 12px;
+      color: #959595;
+      font-size: 14px;
+      font-weight: 400px;
+    }
+  }
+  .error {
+    color: red;
+    margin-top: 8px;
+  }
+}

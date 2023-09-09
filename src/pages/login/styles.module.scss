@@ -1,0 +1,63 @@
+@import '@styles/_variables.scss';
+.login-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 164px;
+  padding: 16px;
+  .kakao-button {
+    background-color: #feea0f;
+    color: #371c1d;
+    font-size: 18px;
+    letter-spacing: -0.54px;
+  }
+}
+.signup-container {
+  .form-container {
+    padding: 24px 16px;
+    .label-title {
+      margin-bottom: 24px;
+      &-sub {
+        margin-bottom: 10px;
+      }
+    }
+    .user-info-container {
+      .form-wrapper {
+        margin-bottom: 16px;
+        &:last-child {
+          margin-bottom: 8px;
+        }
+      }
+    }
+    .phonecheck-container {
+      .form-input {
+        margin-bottom: 8px;
+      }
+      .auth-input-wrapper {
+        width: 100%;
+        display: inline-flex;
+        gap: 8px;
+        > .form-input {
+          width: 100%;
+          > div > div {
+            color: $red;
+          }
+        }
+        button {
+          margin-bottom: 8px;
+          min-width: fit-content;
+          color: $green;
+          text-decoration: underline;
+          font-size: 14px;
+          font-weight: 400;
+          letter-spacing: -0.42px;
+          text-underline-position: under;
+          text-decoration-thickness: 1px;
+        }
+      }
+    }
+  }
+}

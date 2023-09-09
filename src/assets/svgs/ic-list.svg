@@ -1,0 +1,13 @@
+<svg id="btn_-" data-name="btn -" xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 25 25">
+  <g id="구성_요소_55_1" data-name="구성 요소 55 – 1">
+    <rect id="사각형_4166" data-name="사각형 4166" width="25" height="25" fill="#fff" opacity="0.002"/>
+    <g id="그룹_3400" data-name="그룹 3400" transform="translate(5.729 3.805)">
+      <path id="패스_1392" data-name="패스 1392" d="M237.947,56.051H229.87a1.47,1.47,0,0,0-1.471,1.47V71.968a1.471,1.471,0,0,0,1.471,1.471h10.6a1.471,1.471,0,0,0,1.471-1.471v-11.4Z" transform="translate(-228.399 -56.051)" fill="none" stroke="#bababa" stroke-linejoin="round" stroke-width="1"/>
+      <g id="그룹_3399" data-name="그룹 3399" transform="translate(3.13 5.465)">
+        <line id="선_308" data-name="선 308" x2="5.057" fill="none" stroke="#bababa" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1"/>
+        <line id="선_309" data-name="선 309" x2="7.28" transform="translate(0 3.229)" fill="none" stroke="#bababa" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1"/>
+        <line id="선_310" data-name="선 310" x2="7.28" transform="translate(0 6.458)" fill="none" stroke="#bababa" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1"/>
+      </g>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,14 @@
+<svg id="구성_요소_42_8" data-name="구성 요소 42 – 8" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="25" height="25" viewBox="0 0 25 25">
+  <defs>
+    <clipPath id="clip-path">
+      <rect id="사각형_6308" data-name="사각형 6308" width="19" height="19" fill="none"/>
+    </clipPath>
+  </defs>
+  <rect id="사각형_24" data-name="사각형 24" width="25" height="25" fill="#fff" opacity="0"/>
+  <g id="그룹_4046" data-name="그룹 4046" transform="translate(3 3)">
+    <g id="그룹_4045" data-name="그룹 4045" clip-path="url(#clip-path)">
+      <path id="패스_1563" data-name="패스 1563" d="M18.5,18.5H.5A8.64,8.64,0,0,1,9.14,9.86h.72A8.64,8.64,0,0,1,18.5,18.5Z" fill="none" stroke="#bababa" stroke-miterlimit="10" stroke-width="1"/>
+      <circle id="타원_795" data-name="타원 795" cx="3.6" cy="3.6" r="3.6" transform="translate(5.9 0.5)" fill="none" stroke="#bababa" stroke-miterlimit="10" stroke-width="1"/>
+    </g>
+  </g>
+</svg>

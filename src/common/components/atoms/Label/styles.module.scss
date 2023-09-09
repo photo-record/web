@@ -1,0 +1,23 @@
+@import '@styles/_variables.scss';
+.label {
+  color: $greyscale9;
+  font-size: 18px;
+  letter-spacing: -0.54px;
+  line-height: 24px;
+  & .required {
+    color: $main;
+    margin-left: 3px;
+  }
+  &-sm {
+    font-size: 14px;
+    letter-spacing: -0.42px;
+    line-height: 22px;
+    font-weight: 500;
+  }
+  &-md {
+  }
+  &-lg {
+    font-size: 18px;
+    font-weight: 500;
+  }
+}

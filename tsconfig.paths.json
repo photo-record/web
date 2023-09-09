@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./src",
+
+    "paths": {
+      // "@/*": ["src/*"]
+      "@assets/*": ["./assets/*"],
+      "@common/*": ["./common/*"],
+      "@components": ["./common/components/index.tsx"],
+      "@components/*": ["./common/components/*"],
+      "@styles/*": ["./common/styles/*"],
+      "@helpers/*": ["./helpers/*"],
+      "@modules/*": ["./modules/*"],
+      "@pages": ["./pages/index.tsx"],
+      "@pages/*": ["./pages/*"],
+      "@router": ["./router/index.tsx"],
+      "@router/*": ["./router/*"],
+      "@utils/*": ["./utils/*"]
+    }
+  }
+}
