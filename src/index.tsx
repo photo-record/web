@@ -5,7 +5,7 @@ import ReactDOM from 'react-dom/client';
 import { RecoilRoot } from 'recoil';
 import Router from '@router/router';
 
-window.Kakao.init('2b1c14d62233307e392945d25a003464');
+window.Kakao.init(process.env.REACT_APP_KAKAO_JS_SDK_KEY);
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
   <React.StrictMode>

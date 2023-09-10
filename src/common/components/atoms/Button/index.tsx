@@ -6,7 +6,7 @@ import styles from './styles.module.scss';
 const cx = classNames.bind(styles);
 
 export interface ButtonLayoutProps {
-  buttonType: 'primary' | 'default';
+  buttonType?: 'primary' | 'default';
   buttonSize?: 'SM' | 'MD' | 'LG';
   isFull?: boolean;
   disabled?: boolean;

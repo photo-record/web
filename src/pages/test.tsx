@@ -1,3 +1,4 @@
+import ImageUploadButton from '@common/components/molecules/ImageUploadButton';
 import * as A from '@components/atoms';
 import * as M from '@components/molecules';
 
@@ -38,6 +39,11 @@ function Test() {
         value={inputValue}
         error=""
         // isNumeric
+      />
+      <ImageUploadButton
+        onUploaded={(e: string) => {
+          console.log(e);
+        }}
       />
     </div>
   );
