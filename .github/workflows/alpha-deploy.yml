@@ -22,8 +22,22 @@ jobs:
         with:
           node-version: 16.19.1
 
-      - name: Install dependencies
-        run: yarn install
+      # - name: Install dependencies
+      #   run: yarn install
+
+      - restore_cache:
+        name: Restore Yarn Package Cache
+        keys:
+          - yarn-packages-{{ checksum "yarn.lock" }}
+      - run:
+          name: Install Dependencies
+          command: yarn install --immutable
+      - save_cache:
+          name: Save Yarn Package Cache
+          key: yarn-packages-{{ checksum "yarn.lock" }}
+          paths:
+            - .yarn/cache
+            - .yarn/unplugged
 
       - name: Build
         run: yarn build
