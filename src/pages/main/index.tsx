@@ -1,7 +1,7 @@
 import * as A from '@components/atoms';
 import * as Svgs from '@assets/svgs';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import classNames from 'classnames/bind';
 import styles from './styles.module.scss';
 import { useNavigate } from 'react-router-dom';
@@ -10,12 +10,7 @@ import axios from 'axios';
 const cx = classNames.bind(styles);
 const { Kakao } = window;
 function Main() {
-  interface UserInfoType {
-    [index: string]: string; //HTMLElement; //React.ReactNode;
-  }
   const navigate = useNavigate();
-  const [token, setToken] = useState<string>('');
-  const [userInfo, setUserInfo] = useState<UserInfoType | undefined>(undefined);
   const params = new URL(document.location.toString()).searchParams;
   const code = params.get('code');
 
@@ -38,13 +33,11 @@ function Main() {
           )
           .then((res) => {
             console.log(res);
-            setToken(res?.data?.access_token ?? '');
             Kakao.Auth.setAccessToken(res.data.access_token);
             Kakao.API.request({
               url: '/v2/user/me',
               success: function (response: any) {
                 console.log(response);
-                setUserInfo(response?.kakao_account);
                 navigate('/home');
               },
               fail: function (error: any) {
