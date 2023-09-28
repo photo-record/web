@@ -35,9 +35,9 @@ function Login() {
               url: '/v2/user/me',
               success: async function (response: any) {
                 localStorage.setItem('accessToken', 'aa');
-                const redirecturl = sessionStorage?.redirectTo;
+                const redirecturl = sessionStorage.getItem('redirectTo');
                 sessionStorage?.removeItem('redirectTo');
-                navigate(redirecturl ? redirecturl : '/', {
+                navigate(!!redirecturl ? redirecturl : '/', {
                   replace: true,
                 });
               },
@@ -56,7 +56,7 @@ function Login() {
   }, [code]);
 
   useEffect(() => {
-    if (redirectTo) {
+    if (!!redirectTo) {
       sessionStorage.setItem('redirectTo', redirectTo);
     }
   }, [redirectTo]);
