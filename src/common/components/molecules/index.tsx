@@ -1,3 +1,5 @@
 import BottomAppbar from './BottomAppbar';
 import Header from './Header';
-export { Header, BottomAppbar };
+import ImageUploadButton from './ImageUploadButton';
+import VideoUploadButton from './ImageUploadButton/VideoUploadButton';
+export { Header, BottomAppbar, ImageUploadButton, VideoUploadButton };

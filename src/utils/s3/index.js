@@ -22,7 +22,9 @@ var s3 = new AWS.S3({
 
 export function upload(file, progressCallback, resultCallback) {
   var params = {
-    Key: `image/${new Date().getTime()}.${file.name.split('.').slice(-1)}`,
+    Key: `${
+      file.type?.indexOf('video') >= 0 ? 'video' : 'image'
+    }/${new Date().getTime()}.${file.name.split('.').slice(-1)}`,
     ContentType: file.type,
     Body: file,
     ACL: 'public-read',
@@ -38,39 +40,39 @@ export function upload(file, progressCallback, resultCallback) {
       resultCallback(data);
     });
 }
-export function uploadBlob(file, progressCallback, resultCallback) {
-  var params = {
-    Key: `${new Date().getTime()}.jpg`,
-    ContentType: file.type,
-    Body: file,
-    ACL: 'public-read',
-  };
-  s3.upload(params)
-    .on('httpUploadProgress', function (evt) {
-      progressCallback((evt.loaded * 100) / evt.total);
-    })
-    .send(function (err, data) {
-      if (err) {
-        throw new Error(err);
-      }
-      resultCallback(data);
-    });
-}
+// export function uploadBlob(file, progressCallback, resultCallback) {
+//   var params = {
+//     Key: `${new Date().getTime()}.jpg`,
+//     ContentType: file.type,
+//     Body: file,
+//     ACL: 'public-read',
+//   };
+//   s3.upload(params)
+//     .on('httpUploadProgress', function (evt) {
+//       progressCallback((evt.loaded * 100) / evt.total);
+//     })
+//     .send(function (err, data) {
+//       if (err) {
+//         throw new Error(err);
+//       }
+//       resultCallback(data);
+//     });
+// }
 
-export async function asyncUpload(file) {
-  try {
-    const params = {
-      Key: `${new Date().getTime()}.${
-        file.name?.split('.')?.slice(-1) || (Math.random() * 1000).toString()
-      }`,
-      ContentType: file.type,
-      Body: file,
-      ACL: 'public-read',
-    };
-    return await s3.upload(params).promise();
-  } catch (e) {
-    if (err) {
-      throw new Error(err);
-    }
-  }
-}
+// export async function asyncUpload(file) {
+//   try {
+//     const params = {
+//       Key: `${new Date().getTime()}.${
+//         file.name?.split('.')?.slice(-1) || (Math.random() * 1000).toString()
+//       }`,
+//       ContentType: file.type,
+//       Body: file,
+//       ACL: 'public-read',
+//     };
+//     return await s3.upload(params).promise();
+//   } catch (e) {
+//     if (err) {
+//       throw new Error(err);
+//     }
+//   }
+// }

@@ -44,8 +44,8 @@ module.exports = {
   },
   rules: {
     '@typescript-eslint/no-explicit-any': 'off',
-    '@typescript-eslint/no-unused-vars': ['warn'],
-    'no-unused-vars': 'warn',
+    '@typescript-eslint/no-unused-vars': ['off'],
+    'no-unused-vars': 'off',
     // 추후 .prettierrc.js 파일에서 설정해줄 예정
   },
   settings: {

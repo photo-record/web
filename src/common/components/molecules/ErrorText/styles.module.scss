@@ -1,0 +1,10 @@
+@import '@styles/_variables.scss';
+.ErrorText {
+  color: $error;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 4px;
+  font-size: 12px;
+  font-weight: 400;
+}

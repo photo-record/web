@@ -1,0 +1,89 @@
+@import '@styles/_variables.scss';
+.dropbox-full-container {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+  > div {
+    width: 100%;
+    input {
+      padding: 8px 20px;
+      background-color: transparent;
+      border: 0;
+      border-bottom: 1px solid #fff;
+      border-radius: 0;
+      margin-top: 12px;
+      color: #fff;
+    }
+  }
+  .title-container {
+    width: fit-content;
+    white-space: pre;
+    height: fit-content;
+    padding-top: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 140%;
+  }
+}
+.dropbox-container {
+  position: relative;
+  width: 100%;
+
+  .input-container {
+    cursor: pointer;
+    height: fit-content;
+    width: 100%;
+    padding: 8px 28px 8px 20px;
+    display: flex;
+    gap: 4px;
+    justify-content: space-between;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    border: 1px solid #dddddd;
+    text-align: left;
+    color: #fff;
+    border-radius: 4px;
+    height: 36px;
+    svg {
+      position: absolute;
+      right: 6px;
+      top: 6px;
+    }
+  }
+  .option-container {
+    background-color: #fff;
+    position: absolute;
+    top: calc(100% + 4px);
+    width: 100%;
+    border: 1px solid #c5c5c5;
+    border-top: 0;
+    border-radius: 4px 4px;
+    overflow: auto;
+    max-height: 184px;
+    z-index: 2;
+    .option-item {
+      cursor: pointer;
+      height: 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 16px;
+      color: #333;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: normal;
+      &:hover {
+        background-color: #c9c9c9;
+      }
+      &-disable {
+        cursor: not-allowed;
+        color: #b7b7b7;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: normal;
+      }
+    }
+  }
+}

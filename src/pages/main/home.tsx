@@ -3,16 +3,30 @@
 import React from 'react';
 import classNames from 'classnames/bind';
 import styles from './styles.module.scss';
-// import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 function Home() {
-  //   const navigate = useNavigate();
+  const navigate = useNavigate();
   return (
-    <div className={cx('main-container')}>
-      <button>포토레코드 홈 페이지입니다.</button>
+    <div className={cx('main-container', 'main-no-img')}>
+      <div className={cx('main-content')}>
+        <div>
+          아직 등록된 사진이 없어요
+          <br />
+          사진을 등록해보세요!
+        </div>
+        <button
+          onClick={() => {
+            navigate('/create');
+          }}
+        >
+          등록하러 가기
+        </button>
+      </div>
     </div>
   );
 }
 export default Home;
-export const path = '/home';
+export const path = '/';
+export const loginRequired = true;

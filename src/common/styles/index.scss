@@ -1,62 +1,80 @@
 @import './common/bootstrap-reboot.css';
-@import url('https://fonts.googleapis.com/css?family=Noto+Sans+KR:300,400,500,600,700&display=swap&subset=korean');
 
 @font-face {
-  font-family: 'Noto Sans KR';
-  font-style: normal;
+  font-family: pretendard;
   font-weight: 100;
-  src: url('../../assets/fonts/NotoSansKR-Thin.woff2') format('woff2'),
-    url('../../assets/fonts/NotoSansKR-Thin.woff') format('woff'),
-    url('../../assets/fonts/NotoSansKR-Thin.otf') format('opentype');
+  src: url('../../assets/fonts/Pretendard-Thin.ttf') format('opentype');
+  font-display: swap;
 }
+
 @font-face {
-  font-family: 'Noto Sans KR';
-  font-style: normal;
+  font-family: pretendard;
+  font-weight: 200;
+  src: url('../../assets/fonts/Pretendard-ExtraLight.ttf') format('opentype');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: pretendard;
   font-weight: 300;
-  src: url('../../assets/fonts/NotoSansKR-Light.woff2') format('woff2'),
-    url('../../assets/fonts/NotoSansKR-Light.woff') format('woff'),
-    url('../../assets/fonts/NotoSansKR-Light.otf') format('opentype');
+  src: url('../../assets/fonts/Pretendard-Light.ttf') format('opentype');
+  font-display: swap;
 }
 @font-face {
-  font-family: 'Noto Sans KR';
-  font-style: normal;
+  font-family: pretendard;
   font-weight: 400;
-  src: url('../../assets/fonts/NotoSansKR-Regular.woff2') format('woff2'),
-    url('../../assets/fonts/NotoSansKR-Regular.woff') format('woff'),
-    url('../../assets/fonts/NotoSansKR-Regular.otf') format('opentype');
+  src: url('../../assets/fonts/Pretendard-Regular.ttf') format('opentype');
+  font-display: swap;
 }
+
 @font-face {
-  font-family: 'Noto Sans KR';
-  font-style: normal;
+  font-family: pretendard;
   font-weight: 500;
-  src: url('../../assets/fonts/NotoSansKR-Medium.woff2') format('woff2'),
-    url('../../assets/fonts/NotoSansKR-Medium.woff') format('woff'),
-    url('../../assets/fonts/NotoSansKR-Medium.otf') format('opentype');
+  src: url('../../assets/fonts/Pretendard-Medium.ttf') format('opentype');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: pretendard;
+  font-weight: 600;
+  src: url('../../assets/fonts/Pretendard-SemiBold.ttf') format('opentype');
+  font-display: swap;
 }
 @font-face {
-  font-family: 'Noto Sans KR';
-  font-style: normal;
+  font-family: pretendard;
   font-weight: 700;
-  src: url('../../assets/fonts/NotoSansKR-Bold.woff2') format('woff2'),
-    url('../../assets/fonts/NotoSansKR-Bold.woff') format('woff'),
-    url('../../assets/fonts/NotoSansKR-Bold.otf') format('opentype');
+  src: url('../../assets/fonts/Pretendard-Bold.ttf') format('opentype');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: pretendard;
+  font-weight: 800;
+  src: url('../../assets/fonts/Pretendard-ExtraBold.ttf') format('opentype');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: pretendard;
+  font-weight: 900;
+  src: url('../../assets/fonts/Pretendard-Black.ttf') format('opentype');
+  font-display: swap;
 }
 @font-face {
-  font-family: 'Noto Sans KR';
-  font-style: normal;
-  font-weight: 900;
-  src: url('../../assets/fonts/NotoSansKR-Black.woff2') format('woff2'),
-    url('../../assets/fonts/NotoSansKR-Black.woff') format('woff'),
-    url('../../assets/fonts/NotoSansKR-Black.otf') format('opentype');
+  font-family: SansitaOne;
+  font-weight: 700;
+  src: url('../../assets/fonts/SansitaOne.ttf') format('opentype');
+  font-display: swap;
 }
 
 body {
-  background: #fff !important;
-  font-family: 'Noto Sans KR', sans-serif !important;
+  background: #202020 !important;
+  color: #fff;
+  font-family: pretendard, sans-serif !important;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-display: swap;
-  max-width: 769px;
+  max-width: 768px;
   margin: 0 auto;
   #root {
     height: 100%;
@@ -70,7 +88,8 @@ textarea {
   appearance: none;
   border-radius: 0;
   background-color: #fff;
-  font-family: 'Noto Sans KR', sans-serif !important;
+  font-family: pretendard, sans-serif !important;
+  outline: 0;
 }
 
 button {
@@ -81,7 +100,7 @@ button {
   background-color: transparent;
   display: flex;
   align-items: center;
-  font-family: 'Noto Sans KR', sans-serif !important;
+  font-family: pretendard, sans-serif !important;
 
   &:hover {
     cursor: pointer;
@@ -94,4 +113,7 @@ a {
   &:hover {
     color: currentcolor;
   }
+}
+hr {
+  margin: 0;
 }

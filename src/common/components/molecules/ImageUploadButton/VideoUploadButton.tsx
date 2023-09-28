@@ -4,14 +4,14 @@ import { Button } from '@components/atoms';
 import { CircularProgress } from '@material-ui/core';
 import { upload } from '@utils/s3';
 
-export interface ImageUploadButtonProps {
+export interface VideoUploadButtonProps {
   onUploaded?: (text: string) => void;
   renderButton?: () => JSX.Element;
   multiple?: boolean;
   disabled?: boolean;
   className?: string;
 }
-const ImageUploadButton: FunctionComponent<ImageUploadButtonProps> = ({
+const VideoUploadButton: FunctionComponent<VideoUploadButtonProps> = ({
   onUploaded,
   renderButton,
   multiple,
@@ -89,24 +89,19 @@ const ImageUploadButton: FunctionComponent<ImageUploadButtonProps> = ({
         onChange={uploadImage}
         ref={fileElement}
         type="file"
-        accept="image/*"
+        accept="video/mp4,video/x-m4v,video/*"
         style={{ display: 'none' }}
         multiple={multiple}
         disabled={disabled}
       />
-
+      {loading && <CircularProgress size={22} variant="determinate" value={uploadProgess} />}
       {renderButton && (
         <div onClick={disabled ? null : selectImage} className={className}>
           {renderButton()}
         </div>
       )}
-      {!renderButton && (
-        <Button onClick={disabled ? null : selectImage}>
-          업로드
-          {loading && <CircularProgress size={22} variant="determinate" value={uploadProgess} />}
-        </Button>
-      )}
+      {!renderButton && <Button onClick={disabled ? null : selectImage}>업로드</Button>}
     </>
   );
 };
-export default ImageUploadButton;
+export default VideoUploadButton;
