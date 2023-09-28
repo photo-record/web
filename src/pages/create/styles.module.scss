@@ -16,8 +16,21 @@
     height: 1px;
     margin: 20px 20px;
   }
+  .input-container {
+    padding: 0 20px;
+  }
   .title-container {
-    padding: 32px 20px 0;
+    padding-top: 32px;
+  }
+  .date-container {
+    margin-bottom: 20px;
+    input {
+      font-size: 14px;
+      color-scheme: white;
+      &::-webkit-calendar-picker-indicator {
+        filter: invert(1) brightness(100%) sepia(100%) saturate(100%) hue-rotate(180deg);
+      }
+    }
   }
   .contents-container {
     padding: 0 20px;

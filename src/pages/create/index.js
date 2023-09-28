@@ -8,6 +8,8 @@ import { ImageUploadButton, VideoUploadButton } from '@common/components/molecul
 import Textarea from '@common/components/molecules/Input/Textarea';
 import Dropbox from '@common/components/molecules/Dropbox';
 import ErrorText from '@common/components/molecules/ErrorText';
+import CalendarInput from '@common/components/molecules/Input/CalendarInput';
+import SelectInput from '@common/components/molecules/Input/Select';
 
 const cx = classNames.bind(styles);
 function Create() {
@@ -47,7 +49,7 @@ function Create() {
   }
   return (
     <div className={cx('create-container')}>
-      <div className={cx('title-container')}>
+      <div className={cx('input-container', 'title-container')}>
         <Input
           placeholder={'이름을 지어주세요.'}
           value={values?.title}
@@ -157,8 +159,28 @@ function Create() {
         </button>
       </div>
       <hr className={cx('main-hr')} />
+      <div className={cx('input-container', 'date-container')}>
+        <CalendarInput
+          title={'언제 촬영했나요?'}
+          value={values?.takeDate}
+          onChange={(e) => {
+            handleChange('takeDate', e?.target?.value);
+          }}
+          type={'date'}
+        />
+      </div>
+      <div className={cx('input-container', 'with-container')}>
+        <SelectInput
+          title={'누구와 함께 다녀오셨나요?'}
+          value={values?.takeDate}
+          onChange={(e) => {
+            handleChange('takeDate', e?.target?.value);
+          }}
+          type={'date'}
+        />
+      </div>
       <div className={cx('button-wrapper')}>
-        <buttom className={cx('submit-btn', 'submit-btn-disable')}>등록하기</buttom>
+        <button className={cx('submit-btn', 'submit-btn-disable')}>등록하기</button>
       </div>
     </div>
   );
