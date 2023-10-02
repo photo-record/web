@@ -65,5 +65,5 @@ function Main() {
   );
 }
 export default Main;
-export const loginRequire = true;
+// export const loginRequire = true;
 export const path = '/mypage';

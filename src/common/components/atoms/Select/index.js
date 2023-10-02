@@ -11,9 +11,8 @@ const createOption = (label) => ({
   value: label,
 });
 
-export default () => {
+export default ({ onChange, selectValue = [] }) => {
   const [inputValue, setInputValue] = React.useState('');
-  const [value, setValue] = React.useState([]);
 
   const handleKeyDown = (event) => {
     if (!inputValue) return;
@@ -21,7 +20,8 @@ export default () => {
       case 'Enter':
       case 'Tab':
         if (event.nativeEvent.isComposing === false) {
-          setValue((prev) => [...prev, createOption(inputValue)]);
+          console.log(selectValue);
+          onChange([...selectValue, createOption(inputValue)]);
           setInputValue('');
           event.preventDefault();
         }
@@ -36,32 +36,35 @@ export default () => {
       isMulti
       menuIsOpen={false}
       onChange={(newValue) => {
-        setValue(newValue);
+        onChange(newValue);
       }}
       onInputChange={(newValue) => setInputValue(newValue)}
       onKeyDown={handleKeyDown}
       placeholder="함께한 분의 이름을 적어주세요"
-      value={value}
+      value={selectValue}
       styles={{
         control: (provided, state) => ({
           ...provided,
           height: 40,
           minHeight: 40,
-          borderColor: '#fff',
+          borderColor: '#202020',
           borderRadius: 4,
           '&:hover': { cursor: 'pointer' },
           boxShadow: 'none',
-          backgroundColor: '#202020',
-          color: '#fff',
+          backgroundColor: '#fff',
+          color: '#202020',
         }),
         input: (provided, state) => ({
           ...provided,
-          color: '#fff',
+          color: '#202020',
         }),
         multiValue: (provided, state) => ({
           ...provided,
-          color: '#212121',
-          backgroundColor: '#fff',
+          color: '#fff',
+          backgroundColor: '#579883',
+          '>div': {
+            color: '#fff',
+          },
         }),
         option: (provided, state) => ({
           ...provided,
@@ -73,7 +76,7 @@ export default () => {
         }),
         menu: (provided) => ({
           ...provided,
-          border: 'solid 1px #212121',
+          border: 'solid 1px #fff',
           borderRadius: 4,
         }),
       }}

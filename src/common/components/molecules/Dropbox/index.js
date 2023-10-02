@@ -9,15 +9,7 @@ import { Input } from '@common/components/atoms';
 
 const cx = classNames.bind(styles);
 
-const Dropbox = ({
-  options, //{value, label}
-  styles,
-  title,
-  className,
-  onChange,
-  value,
-  placeholder,
-}) => {
+const Dropbox = ({ options, styles, title, className, onChange, value, placeholder }) => {
   const InputRef = useRef();
   const OptionsRef = useRef();
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -49,7 +41,15 @@ const Dropbox = ({
             isOpen={dropdownOpen}
             onClick={() => setDropdownOpen(!dropdownOpen)}
           >
-            {value?.value === 0 ? '기타' : value?.label ?? placeholder ?? ''}
+            {value?.value === 0 ? (
+              '기타'
+            ) : value?.label ? (
+              value?.label
+            ) : placeholder ? (
+              <div>{placeholder}</div>
+            ) : (
+              ''
+            )}
             {dropdownOpen ? <Svgs.ArrowTop /> : <Svgs.ArrowBottom />}
           </div>
 

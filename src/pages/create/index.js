@@ -4,16 +4,20 @@ import React, { useEffect, useState } from 'react';
 import classNames from 'classnames/bind';
 import styles from './styles.module.scss';
 import Input from '@common/components/molecules/Input/Input';
-import { ImageUploadButton, VideoUploadButton } from '@common/components/molecules';
+import { Checkbox, ImageUploadButton, VideoUploadButton } from '@common/components/molecules';
 import Textarea from '@common/components/molecules/Input/Textarea';
 import Dropbox from '@common/components/molecules/Dropbox';
 import ErrorText from '@common/components/molecules/ErrorText';
 import CalendarInput from '@common/components/molecules/Input/CalendarInput';
 import SelectInput from '@common/components/molecules/Input/Select';
+import { postContent } from '@modules/post';
+import { useNavigate } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 function Create() {
+  const navigate = useNavigate();
   const [error, setError] = useState('');
+  const [isValid, setIsValid] = useState(false);
   const [values, setValues] = useState({
     title: '',
     contents: [
@@ -22,11 +26,11 @@ function Create() {
         videoSrc: '',
         description: '',
         photoBoothName: '',
-        isThumbnail: true,
       },
     ],
-    takeDate: '',
-    with: '',
+    thumbnailSrc: '',
+    takeDate: undefined,
+    friends: [],
   });
 
   let photoBoothList = [
@@ -42,16 +46,43 @@ function Create() {
     { value: 9, label: '셀픽스' },
     { value: 10, label: '포토아이브' },
     { value: 11, label: '포토드링크' },
-  ];
+  ].sort((a, b) => (b.value === 0 ? -1 : a.label > b.label ? 1 : -1));
 
   function handleChange(key, value) {
-    setValues({ ...values, [key]: value });
+    if (
+      (key === 'contents', value?.length === 1 && value[0]?.imageSrc && values?.thumbnailSrc === '')
+    )
+      setValues({ ...values, thumbnailSrc: value[0]?.imageSrc, [key]: value });
+    else setValues({ ...values, [key]: value });
   }
+  async function handleSubmit() {
+    let tempValues = { ...values };
+    await postContent(tempValues);
+    window.alert('등록이 되었습니다.');
+    // navigate('/home');
+  }
+  useEffect(() => {
+    if (values.title === '') {
+      setIsValid(false);
+    } else if (values?.takeDate === undefined) {
+      setIsValid(false);
+    } else if (
+      values.contents.filter((content) => {
+        return (
+          content?.imageSrc === '' || content?.description === '' || !content?.photoBoothName?.label
+        );
+      })?.length > 0
+    ) {
+      setIsValid(false);
+    } else {
+      setIsValid(true);
+    }
+  }, [values]);
   return (
     <div className={cx('create-container')}>
       <div className={cx('input-container', 'title-container')}>
         <Input
-          placeholder={'이름을 지어주세요.'}
+          placeholder={'제목을 작성해주세요'}
           value={values?.title}
           onChange={(e) => handleChange('title', e?.target?.value)}
         />
@@ -61,26 +92,40 @@ function Create() {
         {values?.contents?.map((content, index) => (
           <div className={cx('content-container')} key={'content-index' + index}>
             <div className={cx('assets-container')}>
-              {content?.imageSrc !== '' ? (
-                <div className={cx('apply-container', 'apply-container-after-image')}>
-                  <img src={content?.imageSrc} />
-                </div>
-              ) : (
-                <ImageUploadButton
-                  onUploaded={(url) => {
-                    let tempArray = values?.contents;
-                    tempArray[index].imageSrc = url;
-                    handleChange('contents', tempArray);
-                  }}
-                  className={cx('apply-container', 'apply-container-image')}
-                  renderButton={() => (
+              <ImageUploadButton
+                className={cx(
+                  'apply-container',
+                  content?.imageSrc !== ''
+                    ? 'apply-container-after-image'
+                    : 'apply-container-image',
+                )}
+                onUploaded={(url) => {
+                  let tempArray = values?.contents;
+                  tempArray[index].imageSrc = url;
+                  handleChange('contents', tempArray);
+                }}
+                renderButton={() =>
+                  content?.imageSrc !== '' ? (
+                    <>
+                      <img src={content?.imageSrc} />
+                      <Checkbox
+                        text={'메인'}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleChange('thumbnailSrc', content?.imageSrc);
+                        }}
+                        value={content?.imageSrc === values?.thumbnailSrc}
+                      />
+                    </>
+                  ) : (
                     <>
                       <img src={require('@assets/framesChange.png')} />
                       <div>이미지 등록하기</div>
                     </>
-                  )}
-                />
-              )}
+                  )
+                }
+              />
+
               {content?.videoSrc !== '' ? (
                 <div className={cx('apply-container', 'apply-container-after-video')}>
                   <video controls>
@@ -94,13 +139,24 @@ function Create() {
                     tempArray[index].videoSrc = url;
                     handleChange('contents', tempArray);
                   }}
-                  className={cx('apply-container', 'apply-container-video')}
-                  renderButton={() => (
-                    <>
-                      <img src={require('@assets/video.png')} />
-                      <div>영상 등록하기</div>
-                    </>
+                  className={cx(
+                    'apply-container',
+                    content?.videoSrc !== ''
+                      ? 'apply-container-after-video'
+                      : 'apply-container-video',
                   )}
+                  renderButton={() =>
+                    content?.videoSrc !== '' ? (
+                      <video controls>
+                        <source src={content?.videoSrc} />
+                      </video>
+                    ) : (
+                      <>
+                        <img src={require('@assets/video.png')} />
+                        <div>영상 등록하기</div>
+                      </>
+                    )
+                  }
                 />
               )}
             </div>
@@ -127,9 +183,8 @@ function Create() {
               <div className={cx('photobooth-container')}>
                 <Dropbox
                   title={'포토부스 이름'}
-                  options={photoBoothList.sort((a, b) =>
-                    b.value === 0 ? -1 : a.label > b.label ? 1 : -1,
-                  )}
+                  options={photoBoothList}
+                  placeholder={'선택하기'}
                   onChange={(e) => {
                     let tempArray = values?.contents;
                     tempArray[index].photoBoothName = e;
@@ -150,7 +205,6 @@ function Create() {
               videoSrc: '',
               description: '',
               photoBoothName: '',
-              isThumbnail: true,
             });
             handleChange('contents', tempArray);
           }}
@@ -169,18 +223,32 @@ function Create() {
           type={'date'}
         />
       </div>
-      <div className={cx('input-container', 'with-container')}>
+      <div className={cx('input-container', 'friends-container')}>
         <SelectInput
           title={'누구와 함께 다녀오셨나요?'}
-          value={values?.takeDate}
+          selectValue={values?.friends}
           onChange={(e) => {
-            handleChange('takeDate', e?.target?.value);
+            handleChange('friends', e);
           }}
           type={'date'}
         />
       </div>
       <div className={cx('button-wrapper')}>
-        <button className={cx('submit-btn', 'submit-btn-disable')}>등록하기</button>
+        <button
+          className={cx('submit-btn', !isValid && 'submit-btn-disable')}
+          onClick={
+            isValid
+              ? () => {
+                  //   console.log(values);
+                  handleSubmit();
+                }
+              : () => {
+                  console.log(values);
+                }
+          }
+        >
+          등록하기
+        </button>
       </div>
     </div>
   );

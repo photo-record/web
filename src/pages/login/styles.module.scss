@@ -12,17 +12,19 @@
     font-size: 18px;
     text-align: center;
     font-weight: 500;
+    color: $green4;
     span {
       font-size: 32px;
       font-family: SansitaOne;
       display: inline-block;
       width: 100%;
       line-height: 130%;
+      color: $green3;
     }
   }
   .kakao-button {
     background-color: #feea0f;
-    color: #371c1d;
+    color: #3d3832;
     font-size: 18px;
     letter-spacing: -0.54px;
     max-width: 300px;
@@ -39,7 +41,7 @@
   padding: 16px;
   .kakao-button {
     background-color: #feea0f;
-    color: #371c1d;
+    color: #3d3832;
     font-size: 18px;
     letter-spacing: -0.54px;
   }

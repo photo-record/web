@@ -1,0 +1,11 @@
+@import '@styles/_variables.scss';
+.checkbox-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: normal;
+  cursor: pointer;
+}

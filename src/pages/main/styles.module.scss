@@ -12,6 +12,7 @@
     font-size: 18px;
     text-align: center;
     font-weight: 500;
+    color: $green5;
     span {
       font-size: 20px;
       font-family: SansitaOne;
@@ -51,9 +52,10 @@
     justify-content: center;
     align-items: center;
     border-radius: 4px;
-    background: #fff;
+    background: $green3;
+    color: $greyscale0;
     &:hover {
-      background: #dadada;
+      background: $green4;
     }
   }
 }

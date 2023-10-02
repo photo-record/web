@@ -11,14 +11,16 @@ const cx = classNames.bind(styles);
 
 export interface InputLayoutProps {
   title?: string;
+  selectValue?: string[];
 }
 
-const SelectInput: FunctionComponent<InputProps> = ({ title, ...props }) => {
+const SelectInput: FunctionComponent<InputProps> = ({ title, selectValue, ...props }) => {
   const navigate = useNavigate();
+
   return (
     <div className={cx('input-container', 'select-container')}>
       {title && <div className={cx('title-container')}>{title}</div>}
-      <Select />
+      <Select onChange={props?.onChange} selectValue={selectValue} />
     </div>
   );
 };

@@ -29,4 +29,4 @@ function Home() {
 }
 export default Home;
 export const path = '/';
-export const loginRequired = true;
+// export const loginRequired = true;

@@ -8,9 +8,9 @@ import Router from '@router/router';
 window.Kakao.init(process.env.REACT_APP_KAKAO_JS_SDK_KEY);
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
-  <React.StrictMode>
-    <RecoilRoot>
-      <Router />
-    </RecoilRoot>
-  </React.StrictMode>,
+  //   <React.StrictMode>
+  <RecoilRoot>
+    <Router />
+  </RecoilRoot>,
+  //   </React.StrictMode>,
 );

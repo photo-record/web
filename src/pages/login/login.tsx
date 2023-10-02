@@ -6,6 +6,7 @@ import classNames from 'classnames/bind';
 import styles from './styles.module.scss';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { login } from '@modules/post';
 
 const cx = classNames.bind(styles);
 const { Kakao } = window;
@@ -34,12 +35,19 @@ function Login() {
             Kakao.API.request({
               url: '/v2/user/me',
               success: async function (response: any) {
-                localStorage.setItem('accessToken', 'aa');
-                const redirecturl = sessionStorage.getItem('redirectTo');
-                sessionStorage?.removeItem('redirectTo');
-                navigate(!!redirecturl ? redirecturl : '/', {
-                  replace: true,
-                });
+                const result = await login({ email: response?.kakao_account?.email });
+                localStorage.setItem('accessToken', result?.accessToken);
+                if (result?.isNewUser === true) {
+                  navigate('/join', {
+                    replace: true,
+                  });
+                } else {
+                  const redirecturl = sessionStorage.getItem('redirectTo');
+                  sessionStorage?.removeItem('redirectTo');
+                  navigate(!!redirecturl ? redirecturl : '/', {
+                    replace: true,
+                  });
+                }
               },
               fail: function (error: any) {
                 console.error({ error });
@@ -53,6 +61,7 @@ function Login() {
     if (!!code) {
       kakaoLoginLogic();
     }
+    console.log(code);
   }, [code]);
 
   useEffect(() => {
