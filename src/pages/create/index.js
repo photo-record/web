@@ -1,16 +1,18 @@
 import * as A from '@components/atoms';
 import * as Svgs from '@assets/svgs';
-import React, { useEffect, useState } from 'react';
-import classNames from 'classnames/bind';
-import styles from './styles.module.scss';
-import Input from '@common/components/molecules/Input/Input';
+
 import { Checkbox, ImageUploadButton, VideoUploadButton } from '@common/components/molecules';
-import Textarea from '@common/components/molecules/Input/Textarea';
+import React, { useEffect, useState } from 'react';
+
+import CalendarInput from '@common/components/molecules/Input/CalendarInput';
 import Dropbox from '@common/components/molecules/Dropbox';
 import ErrorText from '@common/components/molecules/ErrorText';
-import CalendarInput from '@common/components/molecules/Input/CalendarInput';
+import Input from '@common/components/molecules/Input/Input';
 import SelectInput from '@common/components/molecules/Input/Select';
+import Textarea from '@common/components/molecules/Input/Textarea';
+import classNames from 'classnames/bind';
 import { postContent } from '@modules/post';
+import styles from './styles.module.scss';
 import { useNavigate } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
@@ -60,7 +62,7 @@ function Create() {
     let tempValues = { ...values };
     await postContent(tempValues);
     window.alert('등록이 되었습니다.');
-    // navigate('/home');
+    navigate('/');
   }
   useEffect(() => {
     if (values.title === '') {
@@ -263,4 +265,5 @@ function Create() {
   );
 }
 export default Create;
+export const loginRequire = true;
 export const path = '/create';

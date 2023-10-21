@@ -1,225 +1,182 @@
-import * as A from '@components/atoms';
 import * as M from '@components/molecules';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { numberToDate, numberToPhoneNumber } from '@utils/format';
 
+import Input from '@common/components/molecules/Input/Input';
+import LabelRadioButton from '@common/components/molecules/LabelRadioButton';
 import classNames from 'classnames/bind';
-import { numberToPhoneNumber } from '@utils/format';
+import { joinUser } from '@modules/put';
+import moment from 'moment';
 import styles from './styles.module.scss';
 import { useNavigate } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 function Join() {
-  interface phoneInfoType {
-    number: string;
-    authNumber: string;
-    getAuthNumber: boolean;
-    isValid: boolean;
-  }
-  interface formDataType {
-    question: string;
-    isRequired: boolean;
-    value: string;
+  interface userInfoType {
+    name?: string;
+    phoneNumber?: string;
+    gender?: string;
+    birthday?: string;
   }
   interface userInfoListType {
-    id: number;
-    skippable?: boolean;
-    title: string;
-    subTitle?: string;
-    formData: formDataType[];
+    id?: number;
+    title?: string;
+    type?: string;
+    key?: string;
+    error?: string;
   }
 
   const navigate = useNavigate();
-
-  const [phoneInfo, setPhoneInfo] = useState<phoneInfoType>({
-    number: '',
-    authNumber: '',
-    getAuthNumber: false,
-    isValid: false,
+  const [values, setValues] = useState<userInfoType>({
+    name: '',
+    phoneNumber: '',
+    gender: 'male',
+    birthday: '',
   });
-  const [userInfoStep, setUserInfoStep] = useState<userInfoListType>();
   const [userInfo, setUserInfo] = useState<userInfoListType[]>([
     {
       id: 1,
-      title: '초등학교 정보를 입력해주세요.',
-      subTitle: '초등학교',
-      formData: [
-        { question: '학교명', isRequired: true, value: '' },
-        { question: '졸업년도', isRequired: true, value: '' },
-      ],
+      title: '이름을 입력해주세요.',
+      key: 'name',
+      type: 'input',
     },
     {
       id: 2,
-      title: '중학교 정보를 입력해주세요.',
-      subTitle: '중학교',
-      formData: [
-        { question: '학교명', isRequired: true, value: '' },
-        { question: '졸업년도', isRequired: true, value: '' },
-      ],
+      title: '전화번호를 입력해주세요.',
+      key: 'phoneNumber',
+      type: 'numberInput',
     },
     {
       id: 3,
-      title: '고등학교 정보를 입력해주세요.',
-      subTitle: '고등학교',
-      formData: [
-        { question: '학교명', isRequired: true, value: '' },
-        { question: '졸업년도', isRequired: true, value: '' },
-      ],
+      title: '성별을 선택해주세요.',
+      key: 'gender',
+      type: 'genderCheckbox',
     },
     {
       id: 4,
-      skippable: true,
-      title: 'MBTI를 적어주세요.',
-      formData: [{ question: 'MBTI', isRequired: false, value: '' }],
-    },
-    {
-      id: 5,
-      title: '현재 거주중인 지역을 입력해주세요.',
-      formData: [{ question: '지역', isRequired: false, value: '' }],
+      title: '생년월일을 선택해주세요.',
+      key: 'birthday',
+      type: 'birthday',
     },
   ]);
 
-  function handleChange({ infoName, key, value }) {
-    if (infoName === 'phoneInfo') {
-      setPhoneInfo({ ...phoneInfo, [key]: value });
-    }
-    if (infoName === 'userInfoStep') {
-      setUserInfoStep({ ...userInfoStep, [key]: value });
+  function handleChange(key: string, value: string) {
+    setValues({ ...values, [key]: value });
+    if (key === 'birthday') {
+      const regex = /\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])/g;
+      const userInfoTemp = userInfo;
+      if (!regex.test(numberToDate(value))) {
+        userInfoTemp[3].error = '올바른 날짜를 입력해주세요.';
+      } else if (moment(value) > moment()) {
+        userInfoTemp[3].error = '오늘 이전의 날짜를 입력해주세요.';
+      } else {
+        userInfoTemp[3].error = '';
+      }
+      setUserInfo(userInfoTemp);
     }
   }
-
+  function valid() {
+    const userInfoTemp = userInfo;
+    let isValid = true;
+    if (values.name === '') {
+      userInfoTemp[0].error = '이름을 입력해주세요.';
+      isValid = false;
+    }
+    if (values.phoneNumber === '') {
+      userInfoTemp[1].error = '전화번호를 입력해주세요.';
+      isValid = false;
+    } else if (values.phoneNumber?.length < 11) {
+      userInfoTemp[1].error = '올바른 전화번호를 입력해주세요.';
+      isValid = false;
+    }
+    if (values?.birthday === '') {
+      userInfoTemp[3].error = '생년월일을 입력해주세요.';
+      isValid = false;
+    } else if (userInfo[3].error?.length > 0) {
+      isValid = false;
+    }
+    if (!isValid) {
+      setUserInfo(userInfoTemp);
+    }
+    return isValid;
+  }
+  async function handleSubmit() {
+    if (valid()) {
+      try {
+        await joinUser(values);
+        window.alert('👏👏가입이 완료되었습니다.👏👏');
+        navigate('/');
+      } catch (e) {
+        window.alert(`가입이 완료되지 않았습니다.\n-에러: ${JSON.stringify(e)}`);
+      }
+    }
+  }
   return (
     <div className={cx('signup-container')}>
-      <M.Header title={'회원가입'} />
-      <div className={cx('form-container')}>
-        {phoneInfo?.isValid ? (
-          <div className={cx('user-info-container')}>
-            {userInfoStep?.title && (
-              <A.Label size={'lg'} title={userInfoStep?.title} className={cx('label-title')} />
-            )}
-            {userInfoStep?.subTitle && (
-              <A.Label
-                size={'sm'}
-                title={userInfoStep?.subTitle}
-                className={cx('label-title-sub')}
+      {userInfo?.map((q) => {
+        return (
+          <div className={cx('form-container')}>
+            <div className={cx('form-title', 'title2BD')}>{q.title}</div>
+            {q.type === 'input' && (
+              <Input
+                placeholder={''}
+                value={values[q.key]}
+                onChange={(e: React.FormEvent<HTMLInputElement>) => {
+                  handleChange(q.key, e?.currentTarget?.value);
+                  const userInfoTemp = userInfo;
+                  userInfoTemp[q.id - 1].error = '';
+                  setUserInfo(userInfoTemp);
+                }}
+                maxLength={20}
               />
             )}
-            {userInfoStep?.formData?.map((item, index) => {
-              return (
-                <div className={cx('form-wrapper')} key={item?.question + userInfoStep?.id + index}>
-                  <A.Label
-                    size={'sm'}
-                    title={item?.question}
-                    required={item?.isRequired}
-                    className={cx('label-title-sub')}
-                  />
-                  <A.Input
-                    onChange={(value) => {
-                      const formDataTemp = userInfoStep['formData'];
-                      formDataTemp[index] = { ...item, ['value']: value };
-                      handleChange({
-                        infoName: 'userInfoStep',
-                        key: 'formData',
-                        value: formDataTemp,
-                      });
-                    }}
-                    value={item?.value}
-                  />
-                </div>
-              );
-            })}
-            <A.Button
-              buttonType={'default'}
-              onClick={() => {
-                userInfo[userInfoStep.id - 1] = userInfoStep;
-                setUserInfo(userInfo);
-                if (userInfoStep.id === userInfo?.length) {
-                  alert(JSON.stringify(userInfo));
-                  navigate('/mypage');
-                } else {
-                  setUserInfoStep(userInfo?.filter((step) => step?.id === userInfoStep?.id + 1)[0]);
-                }
-              }}
-              isFull
-              disabled={
-                userInfoStep?.formData?.filter((item) => item?.isRequired && item?.value === '')
-                  ?.length > 0
-                  ? true
-                  : false
-              }
-            >
-              {userInfoStep.id === userInfo?.length ? '완료' : '다음'}
-            </A.Button>
-            {userInfoStep?.skippable && <div className={cx('skip-btn')}>건너뛰기</div>}
-          </div>
-        ) : (
-          <div className={cx('phonecheck-container')}>
-            <A.Label
-              size={'lg'}
-              title={'휴대폰 번호를 인증해주세요'}
-              className={cx('label-title')}
-            />
-            <A.Input
-              isNumeric
-              placeholder="휴대폰 번호를 입력해주세요."
-              onChange={(value) => {
-                handleChange({
-                  infoName: 'phoneInfo',
-                  key: 'number',
-                  value: value.replace('-', ''),
-                });
-              }}
-              value={numberToPhoneNumber(phoneInfo?.number)}
-              className={cx('form-input')}
-            />
-            {phoneInfo?.getAuthNumber && (
-              <div className={cx('auth-input-wrapper')}>
-                <A.Input
-                  isNumeric
-                  placeholder="인증번호를 입력해주세요."
-                  onChange={(value) => {
-                    handleChange({
-                      infoName: 'phoneInfo',
-                      key: 'authNumber',
-                      value: value,
-                    });
-                  }}
-                  value={phoneInfo?.authNumber}
-                  label={'인증시간'}
-                  className={cx('form-input')}
+            {q.type === 'numberInput' && (
+              <Input
+                placeholder={''}
+                value={numberToPhoneNumber(values[q.key])}
+                onChange={(e: React.FormEvent<HTMLInputElement>) => {
+                  handleChange(q.key, e?.currentTarget?.value.replace(/[^0-9]/g, '').slice(0, 11));
+                  const userInfoTemp = userInfo;
+                  userInfoTemp[q.id - 1].error = '';
+                  setUserInfo(userInfoTemp);
+                }}
+              />
+            )}
+            {q.type === 'genderCheckbox' && (
+              <div className={cx('radio')}>
+                <LabelRadioButton
+                  name="gender"
+                  value="남"
+                  checked={values.gender === 'male'}
+                  onChange={() => handleChange(q.key, 'male')} //checked 변경 핸들러
                 />
-                <button>재전송</button>
+                <LabelRadioButton
+                  name="gender"
+                  value="여"
+                  checked={values.gender === 'female'}
+                  onChange={() => handleChange(q.key, 'female')} ///checked 변경 핸들러
+                />
               </div>
             )}
-            <A.Button
-              buttonType={'primary'}
-              disabled={
-                phoneInfo.getAuthNumber
-                  ? phoneInfo?.authNumber === ''
-                  : phoneInfo?.number.length < 11
-              }
-              onClick={() => {
-                if (phoneInfo.getAuthNumber) {
-                  handleChange({
-                    infoName: 'phoneInfo',
-                    key: 'isValid',
-                    value: true,
-                  });
-                  setUserInfoStep(userInfo[0]);
-                } else {
-                  handleChange({
-                    infoName: 'phoneInfo',
-                    key: 'getAuthNumber',
-                    value: true,
-                  });
-                }
-              }}
-              isFull
-            >
-              {phoneInfo.getAuthNumber ? '다음' : '인증문자 받기'}
-            </A.Button>
+            {q.type === 'birthday' && (
+              <Input
+                placeholder={'ex) 19991231'}
+                value={numberToDate(values[q.key])}
+                onChange={(e: React.FormEvent<HTMLInputElement>) => {
+                  const valueNumber = e?.currentTarget?.value;
+                  handleChange(q.key, valueNumber);
+                }}
+              />
+            )}
+            <div className={cx('form-error', 'captionMD')}>{q.error}</div>
           </div>
-        )}
+        );
+      })}
+      <div className={cx('bottom-wrapper')}>
+        <button className={cx('start-button', 'title2BD')} onClick={handleSubmit}>
+          시작하기
+        </button>
       </div>
     </div>
   );

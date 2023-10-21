@@ -1,11 +1,20 @@
-import Header from '@common/components/organisms/Header';
 import * as M from '@components/molecules';
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import * as PageList from '@pages';
 
-import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+
+import { CircularProgress } from '@mui/material';
+import Header from '@common/components/organisms/Header';
+import classNames from 'classnames/bind';
+import { isLoading } from '@modules/atoms';
+import styles from './router.module.scss';
+import { useRecoilState } from 'recoil';
+
+const cx = classNames.bind(styles);
 
 function Router() {
+  const [loading, setLoading] = useRecoilState(isLoading);
   interface PageType {
     path: string;
     loginRequired?: boolean;
@@ -46,6 +55,11 @@ function Router() {
         })}
         <Route path={'/*'} element={<Navigate to={`/`} />} />
       </Routes>
+      {loading && (
+        <div className={cx('loading')}>
+          <CircularProgress size={20} />
+        </div>
+      )}
       <M.BottomAppbar />
     </BrowserRouter>
   );

@@ -64,7 +64,7 @@ function Login() {
   }, [code]);
 
   useEffect(() => {
-    if (redirectTo?.length > 0) {
+    if (redirectTo?.length > 0 && redirectTo !== '/login') {
       sessionStorage.setItem('redirectTo', redirectTo);
     }
   }, [redirectTo]);

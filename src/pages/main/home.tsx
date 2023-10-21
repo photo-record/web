@@ -1,19 +1,29 @@
 // import * as A from '@components/atoms';
 
 import React, { useEffect, useState } from 'react';
+
+import ContentListItem from '@common/components/organisms/ContentListItem';
 import classNames from 'classnames/bind';
+import { getContentsLists } from '@modules/get';
+import { isLoading } from '@modules/atoms';
 import styles from './styles.module.scss';
 import { useNavigate } from 'react-router-dom';
-import { getContentsLists } from '@modules/get';
-import ContentListItem from '@common/components/organisms/ContentListItem';
+import { useRecoilState } from 'recoil';
 
 const cx = classNames.bind(styles);
 function Home() {
   const [lists, setLists] = useState(undefined);
+  const [loading, setLoading] = useRecoilState(isLoading);
   const navigate = useNavigate();
   async function fetchData() {
-    const data = await getContentsLists();
-    setLists(data);
+    try {
+      setLoading(true);
+      const data = await getContentsLists();
+      setLists(data);
+      setLoading(false);
+    } catch (e) {
+      setLoading(false);
+    }
   }
   useEffect(() => {
     fetchData();
@@ -44,7 +54,7 @@ function Home() {
       </div>
     )
   ) : (
-    <div>로딩중...</div>
+    <div></div>
   );
 }
 export default Home;

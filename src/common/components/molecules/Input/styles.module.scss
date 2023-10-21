@@ -12,14 +12,16 @@
     color: $greyscale9;
     font-weight: 500;
     border-radius: 4px;
-    padding: 8px 20px;
+    padding: 0 20px;
     font-size: 20px;
+    height: 48px;
     background-color: transparent;
 
     &::placeholder {
       color: #ccc;
       font-weight: 400;
       font-size: 14px;
+      line-height: normal;
     }
   }
 }
