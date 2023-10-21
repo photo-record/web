@@ -71,9 +71,7 @@ function Create() {
       setIsValid(false);
     } else if (
       values.contents.filter((content) => {
-        return (
-          content?.imageSrc === '' || content?.description === '' || !content?.photoBoothName?.label
-        );
+        return content?.imageSrc === '' || !content?.photoBoothName?.label;
       })?.length > 0
     ) {
       setIsValid(false);

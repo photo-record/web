@@ -1,6 +1,5 @@
-import React from 'react';
-
 import CreatableSelect from 'react-select/creatable';
+import React from 'react';
 
 const components = {
   DropdownIndicator: null,
@@ -53,6 +52,13 @@ export default ({ onChange, selectValue = [] }) => {
           boxShadow: 'none',
           backgroundColor: '#fff',
           color: '#202020',
+          'div, input': {
+            maxHeight: '40px',
+            paddingTop: 0,
+            paddingBottom: 0,
+            marginTop: 0,
+            marginBottom: 0,
+          },
         }),
         input: (provided, state) => ({
           ...provided,

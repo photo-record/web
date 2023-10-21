@@ -28,6 +28,7 @@ function Join() {
   }
 
   const navigate = useNavigate();
+  const [valid, setValid] = useState<boolean>(false);
   const [values, setValues] = useState<userInfoType>({
     name: '',
     phoneNumber: '',
@@ -76,33 +77,43 @@ function Join() {
       setUserInfo(userInfoTemp);
     }
   }
-  function valid() {
-    const userInfoTemp = userInfo;
-    let isValid = true;
+  function handleValid({ isSubmit = false }) {
+    const userInfoTemp = JSON.parse(JSON.stringify(userInfo));
+    let isValidTemp = true;
+
     if (values.name === '') {
       userInfoTemp[0].error = '이름을 입력해주세요.';
-      isValid = false;
+      isValidTemp = false;
     }
+
     if (values.phoneNumber === '') {
       userInfoTemp[1].error = '전화번호를 입력해주세요.';
-      isValid = false;
+      isValidTemp = false;
     } else if (values.phoneNumber?.length < 11) {
       userInfoTemp[1].error = '올바른 전화번호를 입력해주세요.';
-      isValid = false;
+      isValidTemp = false;
     }
+
     if (values?.birthday === '') {
       userInfoTemp[3].error = '생년월일을 입력해주세요.';
-      isValid = false;
+      isValidTemp = false;
     } else if (userInfo[3].error?.length > 0) {
-      isValid = false;
+      isValidTemp = false;
     }
-    if (!isValid) {
+
+    if (!isValidTemp && isSubmit === true) {
       setUserInfo(userInfoTemp);
     }
-    return isValid;
+
+    return isValidTemp;
   }
+
+  useEffect(() => {
+    setValid(handleValid({ isSubmit: false }));
+  }, [values]);
+
   async function handleSubmit() {
-    if (valid()) {
+    if (handleValid({ isSubmit: true })) {
       try {
         await joinUser(values);
         window.alert('👏👏가입이 완료되었습니다.👏👏');
@@ -124,7 +135,7 @@ function Join() {
                 value={values[q.key]}
                 onChange={(e: React.FormEvent<HTMLInputElement>) => {
                   handleChange(q.key, e?.currentTarget?.value);
-                  const userInfoTemp = userInfo;
+                  const userInfoTemp = [...userInfo];
                   userInfoTemp[q.id - 1].error = '';
                   setUserInfo(userInfoTemp);
                 }}
@@ -134,10 +145,17 @@ function Join() {
             {q.type === 'numberInput' && (
               <Input
                 placeholder={''}
-                value={numberToPhoneNumber(values[q.key])}
+                value={
+                  values[q.key].replace(/[^0-9]/g, '')
+                    ? numberToPhoneNumber(values[q.key].replace(/[^0-9]/g, ''))
+                    : ''
+                }
                 onChange={(e: React.FormEvent<HTMLInputElement>) => {
-                  handleChange(q.key, e?.currentTarget?.value.replace(/[^0-9]/g, '').slice(0, 11));
-                  const userInfoTemp = userInfo;
+                  handleChange(
+                    q.key,
+                    (e?.currentTarget?.value).replace(/[^0-9]/g, '').slice(0, 11),
+                  );
+                  const userInfoTemp = [...userInfo];
                   userInfoTemp[q.id - 1].error = '';
                   setUserInfo(userInfoTemp);
                 }}
@@ -164,7 +182,7 @@ function Join() {
                 placeholder={'ex) 19991231'}
                 value={numberToDate(values[q.key])}
                 onChange={(e: React.FormEvent<HTMLInputElement>) => {
-                  const valueNumber = e?.currentTarget?.value;
+                  const valueNumber = (e?.currentTarget?.value).replace(/[^0-9]/g, '');
                   handleChange(q.key, valueNumber);
                 }}
               />
@@ -174,7 +192,10 @@ function Join() {
         );
       })}
       <div className={cx('bottom-wrapper')}>
-        <button className={cx('start-button', 'title2BD')} onClick={handleSubmit}>
+        <button
+          className={cx('start-button', !valid && 'start-button-disabled', 'title2BD')}
+          onClick={handleSubmit}
+        >
           시작하기
         </button>
       </div>
