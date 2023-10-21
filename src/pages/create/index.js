@@ -20,6 +20,7 @@ function Create() {
   const [isValid, setIsValid] = useState(false);
   const [values, setValues] = useState({
     title: '',
+    description: '',
     contents: [
       {
         imageSrc: '',
@@ -85,6 +86,14 @@ function Create() {
           placeholder={'제목을 작성해주세요'}
           value={values?.title}
           onChange={(e) => handleChange('title', e?.target?.value)}
+        />
+      </div>
+      <div className={cx('input-container', 'description-container')}>
+        <Textarea
+          value={values?.description}
+          placeholder={'무슨 일이 있었는지 자유롭게 적어주세요'}
+          onChange={(e) => handleChange('description', e?.target?.value)}
+          maxLength={1000}
         />
       </div>
       <hr className={cx('main-hr')} style={{ marginBottom: 0 }} />

@@ -22,6 +22,9 @@
   .title-container {
     padding-top: 32px;
   }
+  .description-container {
+    margin-top: 20px;
+  }
   .date-container {
     margin-bottom: 20px;
     input {
@@ -147,7 +150,6 @@
   }
   .button-wrapper {
     position: fixed;
-    max-width: 768px;
     bottom: 0;
     padding: 10px 20px;
     border-top: 0;

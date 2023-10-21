@@ -1,4 +1,5 @@
 import '@common/styles/index.scss';
+import '@common/styles/textFormat.scss';
 
 import React from 'react';
 import ReactDOM from 'react-dom/client';

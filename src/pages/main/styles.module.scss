@@ -105,3 +105,11 @@
     }
   }
 }
+.content-list-full-container {
+  > div {
+    border-bottom: 1px solid $greyscale2;
+    &:last-of-type {
+      border: 0;
+    }
+  }
+}

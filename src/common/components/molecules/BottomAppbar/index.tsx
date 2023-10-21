@@ -1,4 +1,12 @@
-import { IcHome, IcList, IcMeet, IcMeetActive, IcMypage } from '@assets/svgs';
+import {
+  IcHome,
+  IcHomeActive,
+  IcProfile,
+  IcProfileActive,
+  IcMeet,
+  IcMeetActive,
+  IcMypage,
+} from '@assets/svgs';
 import { Link, useLocation } from 'react-router-dom';
 import React, { FunctionComponent, HTMLProps } from 'react';
 
@@ -8,44 +16,28 @@ import styles from './styles.module.scss';
 
 const cx = classNames.bind(styles);
 
-export interface AppbarLayoutProps {
-  title?: string;
-  leftButtonRender?: () => JSX.Element;
-  rightButtonRender?: () => JSX.Element;
-  noBorder?: boolean;
-}
-
-const BottomAppbar: FunctionComponent<AppbarProps> = () => {
+const BottomAppbar: FunctionComponent = () => {
   // const navigate = useNavigate();
   const { pathname } = useLocation();
-  const showBar = [
-    /^\/test/,
-    /^\/guestbook/,
-    /^\/guestbook\/[0-9]+$/g,
-    /^\/potal/,
-    /^\/meet/,
-    /^\/meet\/create/,
-    /^\/meet\/[0-9]+$/g,
-  ];
+  const hideBar = [/^\/login/, /^\/create/];
 
-  if (!showBar?.some((reg) => new RegExp(reg).test(pathname))) return <></>;
+  if (hideBar?.some((reg) => new RegExp(reg).test(pathname)) || !localStorage.accessToken)
+    return <></>;
   return (
     <div className={cx('appbar-container')}>
       <div className={cx('appbar-container-fix')}>
-        <Link to="/potal" className={cx(pathname.startsWith('/potal') && 'active')}>
-          <IcHome />홈
+        <div className={cx('background')} />
+        <Link to="/home" className={cx(pathname.startsWith('/home') && 'active')}>
+          {pathname.startsWith('/home') ? <IcHomeActive /> : <IcHome />}
         </Link>
-        <Link to="#" className={cx(pathname.startsWith('/guestbook') && 'active')}>
-          <IcList />
-          방명록
+        <Link
+          to="create"
+          className={cx('create-btn', 'headline1BD', pathname.startsWith('/create') && 'active')}
+        >
+          +
         </Link>
-        <Link to="/meet" className={cx(pathname.startsWith('/meet') && 'active')}>
-          {pathname.startsWith('/meet') ? <IcMeetActive /> : <IcMeet />}
-          모임
-        </Link>
-        <Link to="/mypage/detail" className={cx(pathname.startsWith('/mypage') && 'active')}>
-          <IcMypage />
-          마이페이지
+        <Link to="/mypage" className={cx(pathname.startsWith('/mypage') && 'active')}>
+          {pathname.startsWith('/mypage') ? <IcProfileActive /> : <IcProfile />}
         </Link>
       </div>
     </div>
@@ -53,4 +45,3 @@ const BottomAppbar: FunctionComponent<AppbarProps> = () => {
 };
 
 export default BottomAppbar;
-export interface AppbarProps extends HTMLProps<HTMLDivElement>, AppbarLayoutProps {}

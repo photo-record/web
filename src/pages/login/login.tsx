@@ -61,11 +61,10 @@ function Login() {
     if (!!code) {
       kakaoLoginLogic();
     }
-    console.log(code);
   }, [code]);
 
   useEffect(() => {
-    if (!!redirectTo) {
+    if (redirectTo?.length > 0) {
       sessionStorage.setItem('redirectTo', redirectTo);
     }
   }, [redirectTo]);
@@ -79,7 +78,7 @@ function Login() {
   return (
     <div className={cx('main-container')}>
       <div>
-        <div className={cx('main-content')}>
+        <div className={cx('main-content', 'title1MD')}>
           함께 혹은 혼자 찍은 사진을 기록해요
           <span>PHOTO RECORD</span>
         </div>

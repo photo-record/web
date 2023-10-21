@@ -79,6 +79,9 @@ body {
   #root {
     height: 100%;
   }
+  div {
+    max-width: 768px;
+  }
 }
 
 input,
