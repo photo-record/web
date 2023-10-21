@@ -1,7 +1,7 @@
 import Axios from 'axios';
 
 class Ajax {
-  static baseURL = 'http://api-photo-record.project-hh.com/';
+  static baseURL = 'https://api-photo-record.project-hh.com/';
   static axios(options = {}) {
     let instance = Axios.create({
       baseURL: Ajax.baseURL,
