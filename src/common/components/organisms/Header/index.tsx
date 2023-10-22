@@ -1,8 +1,9 @@
 import React, { FunctionComponent, HTMLProps } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 
+import { ArrowLeft } from '@assets/svgs';
 import classNames from 'classnames/bind';
 import styles from './styles.module.scss';
-import { useLocation } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 
@@ -12,13 +13,32 @@ export interface HeaderLayoutProps {
 
 const Header: FunctionComponent<HeaderProps> = ({ title }) => {
   const { pathname } = useLocation();
+  const navigate = useNavigate();
+
+  const showBackBtn = [/^\/create/];
   switch (pathname) {
     case '/login':
       return <></>;
   }
   return (
     <div className={cx('header-container')}>
-      <div className={cx('header-wrapper')}>{title ?? 'PHOTO RECORD'}</div>
+      <div className={cx('header-wrapper')}>
+        {showBackBtn?.some((reg) => new RegExp(reg).test(pathname)) && (
+          <button
+            className={cx('back-button')}
+            onClick={() => {
+              if (window.history.length > 1) {
+                navigate(-1);
+              } else {
+                navigate('/');
+              }
+            }}
+          >
+            <ArrowLeft />
+          </button>
+        )}
+        {title ?? 'PHOTO RECORD'}
+      </div>
     </div>
   );
 };

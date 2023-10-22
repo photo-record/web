@@ -12,5 +12,16 @@ async function getContentsLists() {
     };
   }
 }
+async function getContentsDetail(id) {
+  try {
+    const result = await axios().get(`/content/${id}`);
+    return result?.data;
+  } catch (e) {
+    console.error(e);
+    return {
+      result: false,
+    };
+  }
+}
 
-export { getContentsLists };
+export { getContentsLists, getContentsDetail };

@@ -19,8 +19,8 @@ const cx = classNames.bind(styles);
 const BottomAppbar: FunctionComponent = () => {
   // const navigate = useNavigate();
   const { pathname } = useLocation();
-  const hideBar = [/^\/login/, /^\/create/, /^\/join/];
 
+  const hideBar = [/^\/login/, /^\/create/, /^\/join/];
   if (hideBar?.some((reg) => new RegExp(reg).test(pathname)) || !localStorage.accessToken)
     return <></>;
   return (

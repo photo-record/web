@@ -1,0 +1,33 @@
+.detail-container {
+  > div {
+    width: 100%;
+  }
+  .title {
+  }
+  .description {
+  }
+  .takedate {
+    text-align: right;
+  }
+  .friends {
+  }
+  .assets-container {
+    .asset-wrapper {
+      .asset {
+        &-image {
+          max-height: calc(100vh - 60px);
+          img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+          }
+        }
+        &-description {
+        }
+        &-photobooth {
+          text-align: right;
+        }
+      }
+    }
+  }
+}

@@ -4,3 +4,4 @@ export * as Test from './test';
 export * as Join from './login/join';
 export * as MypageMain from './mypage/main';
 export * as Create from './create';
+export * as Detail from './detail';
