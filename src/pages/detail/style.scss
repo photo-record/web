@@ -1,0 +1,22 @@
+@import '@styles/_variables.scss';
+
+.swiper-button-next,
+.swiper-button-prev {
+  &::after {
+    font-size: 20px;
+    color: $greyscale7;
+  }
+}
+.swiper-button-disabled {
+  display: none;
+}
+.swiper-button-prev {
+  left: var(--swiper-navigation-sides-offset, 0px);
+}
+
+.swiper-button-next {
+  right: var(--swiper-navigation-sides-offset, 0px);
+}
+.swiper-wrapper {
+  align-items: center;
+}
