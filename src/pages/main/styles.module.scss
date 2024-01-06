@@ -8,6 +8,7 @@
   flex-direction: column;
   gap: 60px;
   padding: 20px;
+  background-color: #fff;
   .main-content {
     font-size: 18px;
     text-align: center;
@@ -106,6 +107,7 @@
   }
 }
 .content-list-full-container {
+  background-color: #fff;
   h1 {
     padding: 40px 20px 0;
   }
@@ -157,6 +159,9 @@
       > img {
         width: calc(50% - 6px);
       }
+    }
+    &-calendar {
+      padding: 0 20px;
     }
   }
 }

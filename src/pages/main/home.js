@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react';
 
 import ContentListItem from '@common/components/organisms/ContentListItem';
+import ImageCalendar from '@common/components/organisms/ImageCalendar';
 import { ReactComponent as SvgCalendar } from '@assets/svgs/calendar.svg';
 import { ReactComponent as SvgGallery } from '@assets/svgs/gallery.svg';
 import { ReactComponent as SvgList } from '@assets/svgs/list.svg';
@@ -82,6 +83,11 @@ function Home() {
                 />
               );
             })}
+          </div>
+        )}
+        {tab === 3 && (
+          <div className={cx('list-container', 'list-container-calendar')}>
+            <ImageCalendar lists={lists} />
           </div>
         )}
       </div>
