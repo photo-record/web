@@ -3,6 +3,9 @@
 import React, { useEffect, useState } from 'react';
 
 import ContentListItem from '@common/components/organisms/ContentListItem';
+import { ReactComponent as SvgCalendar } from '@assets/svgs/calendar.svg';
+import { ReactComponent as SvgGallery } from '@assets/svgs/gallery.svg';
+import { ReactComponent as SvgList } from '@assets/svgs/list.svg';
 import classNames from 'classnames/bind';
 import { getContentsLists } from '@modules/get';
 import { isLoading } from '@modules/atoms';
@@ -13,6 +16,7 @@ import { useRecoilState } from 'recoil';
 const cx = classNames.bind(styles);
 function Home() {
   const [lists, setLists] = useState(undefined);
+  const [tab, setTab] = useState(1);
   const [loading, setLoading] = useRecoilState(isLoading);
   const navigate = useNavigate();
   async function fetchData() {
@@ -48,9 +52,38 @@ function Home() {
       </div>
     ) : (
       <div className={cx('content-list-full-container')}>
-        {lists?.map((list: object) => {
-          return <ContentListItem data={list} />;
-        })}
+        <h1 className={cx('headline1BD')}>쌓인 기록들이에요</h1>
+        <div className={cx('tab-section')}>
+          <button className={cx('tab', tab === 1 && 'tab-active')} onClick={() => setTab(1)}>
+            <SvgList />
+          </button>
+          <button className={cx('tab', tab === 2 && 'tab-active')} onClick={() => setTab(2)}>
+            <SvgGallery />
+          </button>
+          <button className={cx('tab', tab === 3 && 'tab-active')} onClick={() => setTab(3)}>
+            <SvgCalendar />
+          </button>
+        </div>
+        {tab === 1 && (
+          <div className={cx('list-container', 'list-container-list')}>
+            {lists?.map((list) => {
+              return <ContentListItem data={list} />;
+            })}
+          </div>
+        )}
+        {tab === 2 && (
+          <div className={cx('list-container', 'list-container-gallery')}>
+            {lists?.map((list) => {
+              return (
+                <img
+                  src={list?.thumbnailSrc}
+                  alt={list?.thumbnailSrc}
+                  onClick={() => navigate(`/detail/${list?.id}`)}
+                />
+              );
+            })}
+          </div>
+        )}
       </div>
     )
   ) : (

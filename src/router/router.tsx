@@ -25,9 +25,10 @@ function Router() {
     return {
       path: pageItem['path'],
       loginRequired: pageItem['loginRequired'],
-      default: pageItem.default,
+      default: pageItem?.default,
     };
   });
+
   return (
     <BrowserRouter>
       <Header />
@@ -40,7 +41,7 @@ function Router() {
               path={RouteItem?.path}
               element={
                 RouteItem?.loginRequired ? (
-                  localStorage?.accessToken ? (
+                  localStorage?.accessToken || window.location.pathname === '/login' ? (
                     <RouteElemete />
                   ) : (
                     <Navigate to={`/login?redirect=${window.location.pathname}`} />

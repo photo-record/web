@@ -19,7 +19,6 @@ export default ({ onChange, selectValue = [] }) => {
       case 'Enter':
       case 'Tab':
         if (event.nativeEvent.isComposing === false) {
-          console.log(selectValue);
           onChange([...selectValue, createOption(inputValue)]);
           setInputValue('');
           event.preventDefault();

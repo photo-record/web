@@ -6,9 +6,9 @@ import { numberToDate, numberToPhoneNumber } from '@utils/format';
 import Input from '@common/components/molecules/Input/Input';
 import LabelRadioButton from '@common/components/molecules/LabelRadioButton';
 import classNames from 'classnames/bind';
-import { joinUser } from '@modules/put';
 import moment from 'moment';
 import styles from './styles.module.scss';
+import { updateUser } from '@modules/put';
 import { useNavigate } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
@@ -115,7 +115,7 @@ function Join() {
   async function handleSubmit() {
     if (handleValid({ isSubmit: true })) {
       try {
-        await joinUser(values);
+        await updateUser(values);
         window.alert('👏👏가입이 완료되었습니다.👏👏');
         navigate('/');
       } catch (e) {

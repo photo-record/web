@@ -1,6 +1,6 @@
 import axios from '../axios';
 
-async function joinUser(data) {
+async function updateUser(data) {
   try {
     const result = await axios().put('/user/update', data);
     return result?.data;
@@ -8,4 +8,4 @@ async function joinUser(data) {
     throw e;
   }
 }
-export { joinUser };
+export { updateUser };

@@ -15,7 +15,7 @@ const Header: FunctionComponent<HeaderProps> = ({ title }) => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
 
-  const showBackBtn = [/^\/create/];
+  const showBackBtn = [/^\/create/, /^\/detail/d];
   switch (pathname) {
     case '/login':
       return <></>;

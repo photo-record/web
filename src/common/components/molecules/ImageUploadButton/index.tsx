@@ -10,6 +10,7 @@ export interface ImageUploadButtonProps {
   multiple?: boolean;
   disabled?: boolean;
   className?: string;
+  pathType?: string;
 }
 const ImageUploadButton: FunctionComponent<ImageUploadButtonProps> = ({
   onUploaded,
@@ -17,6 +18,7 @@ const ImageUploadButton: FunctionComponent<ImageUploadButtonProps> = ({
   multiple,
   disabled,
   className,
+  pathType,
 }) => {
   const [loading, setLoading] = useState(false);
   const fileElement = useRef(null);
@@ -43,6 +45,7 @@ const ImageUploadButton: FunctionComponent<ImageUploadButtonProps> = ({
             setUploadProgress(0);
             onUploaded(`https://photo-record-bucket.s3.ap-northeast-2.amazonaws.com/${result.Key}`);
           },
+          pathType,
         );
       } catch (err) {
         if (err) {
