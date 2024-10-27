@@ -66,6 +66,18 @@
       background-color: #f6f6f6b3;
       color: $greyscale8;
     }
+    .date-more {
+      position: absolute;
+      bottom: 2px;
+      right: 2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: $greyscale0;
+      background-color: #579883;
+      padding: 0 4px;
+      border-radius: 4px;
+    }
     img {
       width: 100%;
       height: 100%;

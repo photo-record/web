@@ -60,9 +60,13 @@ function Create() {
   }
   async function handleSubmit() {
     let tempValues = { ...values };
-    await postContent(tempValues);
-    window.alert('등록이 되었습니다.');
-    navigate('/');
+    const res = await postContent(tempValues);
+    if (res?.result !== false) {
+      window.alert('등록이 되었습니다.');
+      navigate('/');
+    } else {
+      window.alert('등록이 정상적으로 되지 않았습니다.');
+    }
   }
   useEffect(() => {
     if (values.title === '') {

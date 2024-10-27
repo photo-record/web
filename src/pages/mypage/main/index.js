@@ -52,15 +52,15 @@ function Main() {
         <h2 className={cx('headline3BD', 'name')}>{userInfo?.name}</h2>
       </div>
       <div className={cx('section-container', 'menu-container')}>
-        <div
+        <button
           onClick={() => {
             // navigate('/join');
           }}
           className={cx('menu-btn', 'title2MD')}
         >
           정보 수정하기
-        </div>
-        <div
+        </button>
+        <button
           onClick={() => {
             localStorage.clear();
             navigate('/login');
@@ -68,7 +68,7 @@ function Main() {
           className={cx('menu-btn', 'title2MD')}
         >
           로그아웃
-        </div>
+        </button>
         {/* <div
           onClick={() => {
             return;

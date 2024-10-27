@@ -15,6 +15,7 @@ async function login(data) {
 async function postContent(data) {
   try {
     const result = await axios().post('/content', data);
+    return result;
   } catch (e) {
     console.error(e);
     return {
